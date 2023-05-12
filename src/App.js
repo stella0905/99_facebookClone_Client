@@ -1,5 +1,14 @@
-import "./App.css";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Router from "shared/router";
 
-export default function App() {
-    return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
+const queryclient = new QueryClient();
+
+function App() {
+    return (
+        <QueryClientProvider client={queryclient}>
+            <Router />
+        </QueryClientProvider>
+    );
 }
+
+export default App;
