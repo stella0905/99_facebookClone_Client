@@ -6,7 +6,9 @@ const queryclient = new QueryClient();
 function App() {
     return (
         <QueryClientProvider client={queryclient}>
-            <Router />
+            <div className="bg-gray-200">
+                <Router />
+            </div>
         </QueryClientProvider>
     );
 }

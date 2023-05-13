@@ -8,6 +8,8 @@ module.exports = {
             },
             colors: {
                 brand: "#1977F2",
+                loginSignUpGreen: "#42B729",
+                backGround: "#42B729",
             },
         },
     },
