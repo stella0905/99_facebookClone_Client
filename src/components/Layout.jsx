@@ -7,8 +7,12 @@ const Layout = () => {
     return (
         <>
             <Header />
-            <Outlet />
-            <Footer />
+            <div className="flex flex-col h-screen justify-center">
+                <div className="flex-grow flex justify-center items-center">
+                    <Outlet />
+                </div>
+                <Footer />
+            </div>
         </>
     );
 };
