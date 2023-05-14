@@ -5,8 +5,8 @@ import React from "react";
 const Login = () => {
     return (
         <>
-            <div className="flex justify-center items-center h-screen">
-                <div className="flex w- 3/5">
+            <div className="flex justify-center">
+                <div className="flex">
                     <LogoWithDescription />
                     <LoginForm className="px-36" />
                 </div>
