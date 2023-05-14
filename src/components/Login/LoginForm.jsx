@@ -1,14 +1,15 @@
 import React from "react";
+import SignupFormModal from "./SignupFormModal";
 
 const LoginForm = () => {
-    const handleSubmit = (event) => {
+    const handleLoginFormSubmit = (event) => {
         event.preventDefault();
-        // Add your form submission logic here
     };
+
     return (
         <div className="w-1/3 h-450 border bg-white rounded-lg shadow-lg ">
             <div className="mx-5 my-5">
-                <form className="space-y-6" onSubmit={handleSubmit}>
+                <form className="space-y-6" onSubmit={handleLoginFormSubmit}>
                     <fieldset>
                         <div>
                             <div className="mt-2">
@@ -55,12 +56,7 @@ const LoginForm = () => {
                     </fieldset>
                 </form>
                 <div className="flex justify-center">
-                    <button
-                        type="submit"
-                        className="flex justify-center m-6 items-center text-lg w-1/2 px-2 py-3 font-medium text-white bg-loginSignUpGreen rounded focus:outline-none hover:bg-green-600"
-                    >
-                        새 계정 만들기
-                    </button>
+                    <SignupFormModal />
                 </div>
             </div>
         </div>
