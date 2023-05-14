@@ -4,10 +4,12 @@ import Footer from "./Footer";
 
 const WithoutHeaderLayout = () => {
     return (
-        <>
-            <Outlet />
+        <div className="flex flex-col h-screen justify-center">
+            <div className="flex-grow flex justify-center items-center">
+                <Outlet />
+            </div>
             <Footer />
-        </>
+        </div>
     );
 };
 
