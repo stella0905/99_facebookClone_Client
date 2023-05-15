@@ -1,11 +1,13 @@
 import React from "react";
 import { ReactComponent as Chat } from "assets/chat.svg";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsFillBellFill, BsFillPersonFill } from "react-icons/bs";
 
 const Header = () => {
-    const goChat = () => {
-        Navigate("/chat");
+    const navigate = useNavigate();
+
+    const goHome = () => {
+        navigate("/home");
     };
 
     return (
@@ -13,7 +15,9 @@ const Header = () => {
             <div className="flex items-center h-12 justify-between px-2 py-1">
                 <div>
                     {/* 로고 */}
-                    <div className="text-xl font-extrabold text-brand">hanghaebook</div>
+                    <div className="text-xl font-extrabold text-brand" onClick={goHome}>
+                        hanghaebook
+                    </div>
                 </div>
                 <div className="flex items-center w-2/5">
                     {/* 검색 입력창 */}
@@ -26,7 +30,7 @@ const Header = () => {
                 {/* 아이콘 */}
                 <div className="flex items-center justify-between">
                     <div className="w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200">
-                        <Chat className="w-3.5 h-3.5 cursor-pointer hover:fill-brand" onClick={goChat} />
+                        <Chat className="w-3.5 h-3.5 cursor-pointer hover:fill-brand" />
                     </div>
                     <div className="w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200">
                         <BsFillBellFill className="w-3.5 h-3.5 cursor-pointer hover:fill-brand transform rotate-[-15deg]" />
