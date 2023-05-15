@@ -5,18 +5,18 @@ import React from 'react';
 
 const Home = () => {
   return (
-    <div className='flex justify-center w-full px-5'>
-      <div className='max-w-[300px]'>
+    <div className='flex justify-center w-full'>
+      <div>
         <UserList />
       </div>
-      <div className='max-w-lg mx-auto'>
+      <div className='mx-auto'>
         <MainFeed />
       </div>
-      <div className='max-w-[300px]'>
+      <div>
         <FollowList />
       </div>
     </div>
-  );
+  ); 
 };
 
 export default Home;

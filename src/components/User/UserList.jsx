@@ -61,7 +61,7 @@ const UserList = () => {
     e.preventDefault();
   };
   return (
-    <div className='ml-3 my-3 w-80'>
+    <div className='ml-3 my-3 w-70'>
       <div className='flex gap-x-4 items-center mb-5'>
         <img
           className='h-7 w-7 flex-none rounded-full bg-gray-50'
