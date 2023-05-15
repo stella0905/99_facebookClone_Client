@@ -10,7 +10,13 @@ const BoardMakerModal = ({setShowBoardModal,showBoardModal}) => {
 
   const [post,postChangeHandler] = useInput('')
   const [button, setButton] = useState(false)
+  const [dragging, setDragging] = useState(false);
 
+  const handleFileChange = (event) => {
+    const files = event.target.files;
+    // 파일 처리 로직 작성
+    console.log(files);
+  };
   //모달창 닫기
   const closeButtonHandler = () => {
     setShowBoardModal(!showBoardModal)
@@ -18,6 +24,28 @@ const BoardMakerModal = ({setShowBoardModal,showBoardModal}) => {
       setButton(!button)
     }
   }
+
+  const handleDragEnter = (event) => {
+    event.preventDefault();
+    setDragging(true);
+  };
+
+  const handleDragLeave = (event) => {
+    event.preventDefault();
+    setDragging(false);
+  };
+
+  const handleDrop = (event) => {
+    event.preventDefault();
+    setDragging(false);
+  
+    const files = event.dataTransfer.files;
+  
+    // 파일 처리 로직 작성
+    console.log(files);
+  
+    // 추가적인 파일 처리 로직을 작성하세요.
+  };
 
   return (
     <div class="h-screen w-screen top-0 left-0 right-0 bottom-0 fixed bg-gray-200 bg-opacity-50 z-10">
@@ -45,25 +73,32 @@ const BoardMakerModal = ({setShowBoardModal,showBoardModal}) => {
           </form>
           {/* <div class="bg-green-200 w-[550px] h-[300px] rounded-lg"></div> */}
           
-          <div class="max-w-xl">
-            <div class=" p-2 bg-white border-solid border-2 border-gray-300 rounded-lg">
-              <label
-                  class="flex justify-center w-full h-[300px] px-4 transition bg-gray-50  rounded-md appearance-none cursor-pointer hover:bg-gray-200 focus:outline-none">
-                  <span class="flex flex-col justify-center items-center space-x-2\">
-                    <div class="bg-gray-300 rounded-full hover:bg-gray-500">
-                  <img class="w-9 h-9 " src={imageAddIcon} alt=''/>
-                        </div>
-                      <span class="font-medium text-gray-600 flex items-center text-[20px]">
-                          사진/동영상 추가
-                          </span>
-                          <span class="text-[14px] text-gray-500">
-                          또는 끌어서 놓습니다.
-                      </span>
-                  </span>
-                  <input type="file" name="file_upload" class="hidden"/>
-              </label>
-            </div>
-          </div>
+          <div className="max-w-xl">
+        <div
+          className={`p-2 bg-white border-solid border-2 border-gray-300 rounded-lg ${
+            dragging ? 'bg-gray-200' : ''
+          }`}
+          onDragEnter={handleDragEnter}
+          onDragOver={handleDragEnter}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <label className="flex justify-center w-full h-[300px] px-4 transition bg-gray-50 rounded-md appearance-none cursor-pointer hover:bg-gray-200 focus:outline-none">
+            <span className="flex flex-col justify-center items-center space-x-2">
+              <div className="bg-gray-300 rounded-full hover:bg-gray-500">
+                <img className="w-9 h-9" src={imageAddIcon} alt="" />
+              </div>
+              <span className="font-medium text-gray-600 flex items-center text-[20px]">
+                사진/동영상 추가
+              </span>
+              <span className="text-[14px] text-gray-500">
+                또는 끌어서 놓습니다.
+              </span>
+            </span>
+            <input type="file" name="file_upload" className="hidden" onChange={handleFileChange}/>
+          </label>
+        </div>
+      </div>
           <div class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"role='button'>게시</div>
         </div>
       </div>
