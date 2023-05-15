@@ -1,14 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Board from './Board'
 import BoardMaker from './BoardMaker'
+import BoardMakerModal from './BoardMakerModal'
 
 const MainFeed = () => {
-  return (
-    <div class="text-center">
+  const [showBoardModal, setShowBoardModal] = useState(false)
 
-      <div class="w-[468px] m-auto border-2 border-sky-500">
+
+  return (
+    <div class="text-center relative ">
+      <div class="w-[680px] m-auto ">
         <div class="my-5">
-        <BoardMaker/>
+        <BoardMaker showBoardModal={showBoardModal} setShowBoardModal={setShowBoardModal}/>
+        {showBoardModal && 
+              <div class=" absolute top-30 translate-x-[50%,50%] z-10">
+                <BoardMakerModal/>
+              </div>}
         </div>
         <Board/>
       </div>

@@ -31,6 +31,26 @@ const Board = () => {
   likes: 2,
   createdAt: "2023-05-13T07:45:56.000Z",
   updatedAt: "2022-07-25T07:52:09.000Z"
+},{
+  post_id:1,
+  user_id:"3",
+  name:"유리",
+  content:"안녕하세요",
+  img_url:
+  "https://img.jpg1",
+  likes: 2,
+  createdAt: "2023-05-13T07:45:56.000Z",
+  updatedAt: "2022-07-25T07:52:09.000Z"
+},{
+  post_id:1,
+  user_id:"3",
+  name:"유리",
+  content:"안녕하세요",
+  img_url:
+  "https://img.jpg1",
+  likes: 2,
+  createdAt: "2023-05-13T07:45:56.000Z",
+  updatedAt: "2022-07-25T07:52:09.000Z"
 },
   ]
   const date = (createdAt)=>{
@@ -42,10 +62,10 @@ const Board = () => {
     <>
     {posts.map((item)=>{
       return(
-      <div key={item.post_id} class="shadow-md overflow-hidden bg-white items-center">
-        <div class=" px-[12px] py-[12px] bg-wight-100 p-2 border-2 border-red-500 ">
-          <div class="flex space-x-56 relative">
-            <div class="flex flex-low ">
+      <div key={item.post_id} class="shadow-md overflow-hidden bg-white items-center mb-5">
+        <div class=" px-[12px] py-[12px] bg-wight-100 ">
+          <div class="flex space-x-[420px] relative">
+            <div class="flex flex-low space-x-2">
               <img 
               class='h-9 w-9 flex-none rounded-full self-center'
               src={default_profile_url}
@@ -78,7 +98,7 @@ const Board = () => {
             </div>
           </div>
           <div>
-            <img class="h-[470px] w-[435px] object-contain"
+            <img class="h-[470px] w-[648px] object-contain"
             src={item.img_url}
             alt=''/>
           </div>
