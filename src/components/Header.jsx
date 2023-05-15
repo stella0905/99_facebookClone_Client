@@ -1,11 +1,13 @@
 import React from "react";
 import { ReactComponent as Chat } from "assets/chat.svg";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { BsFillBellFill, BsFillPersonFill } from "react-icons/bs";
 
 const Header = () => {
+    const navigate = useNavigate();
+
     const goHome = () => {
-        Navigate("/home");
+        navigate("/home");
     };
 
     return (
