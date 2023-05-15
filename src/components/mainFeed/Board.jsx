@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import EditRemove from './EditRemove';
+
 import FollowModal from './FollowModal';
 import { getDayMinuteCounter } from './getDayMinuteCounter';
+import Modify from './Modify';
 
 const Board = () => {
   const default_profile_url = '/images/default-profile-url.png';
@@ -9,39 +10,26 @@ const Board = () => {
   const likeIcon = '/images/likeIcon.png';
   const [showButtons, setShowButtons] = useState(false);
   const [showProfileButtons, setShowProfileButtons] = useState(false);
-
+  const [showEditModal,setShowEditModal] = useState(false)
+  const [showBoardModal,setShowBoardModal] = useState(false)
   //유저 미니프로필로 친구추가 모달 오픈 버튼 함수
   const showFollowProfileButtonHandler = () => {
     setShowProfileButtons(!showProfileButtons)
   }
 
-  //수정, 삭제 모달 오픈 버튼 함수
+  // 수정, 삭제 모달 오픈 버튼 함수
   const moreIconButtonClickHandler = ()=>{
     setShowButtons(!showButtons)
   }
 
+  const onClickEditButtonHandler = () => {
+    setShowBoardModal(!showBoardModal)
+  }
+  const onClickRemoveButtonHandler = () => {
+
+  }
   const posts = [
 {
-  post_id:1,
-  user_id:"3",
-  name:"유리",
-  content:"안녕하세요",
-  img_url:
-  "https://img.jpg1",
-  likes: 2,
-  createdAt: "2023-05-13T07:45:56.000Z",
-  updatedAt: "2022-07-25T07:52:09.000Z"
-},{
-  post_id:1,
-  user_id:"3",
-  name:"유리",
-  content:"안녕하세요",
-  img_url:
-  "https://img.jpg1",
-  likes: 2,
-  createdAt: "2023-05-13T07:45:56.000Z",
-  updatedAt: "2022-07-25T07:52:09.000Z"
-},{
   post_id:1,
   user_id:"3",
   name:"유리",
@@ -88,8 +76,15 @@ const Board = () => {
               onClick={moreIconButtonClickHandler}/>
               {showButtons && 
               <div class="absolute right-0">
-              <EditRemove/>
+                  <div class="pb-4 drop-shadow">
+                  <div class=" flex flex-col justify-center space-y-3 bg-white w-[120px] h-20  ">
+                    <button onClick={onClickEditButtonHandler}>수정</button>
+                    
+                    <button onClick={onClickRemoveButtonHandler}>삭제</button>
+                  </div>
+                </div>
               </div>}
+              {showBoardModal && <Modify showBoardModal={showBoardModal} setShowBoardModal={setShowBoardModal} />}
           </div>
         </div>
           <div>
