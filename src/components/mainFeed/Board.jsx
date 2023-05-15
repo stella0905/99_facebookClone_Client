@@ -39,6 +39,36 @@ const Board = () => {
   likes: 2,
   createdAt: "2023-05-13T07:45:56.000Z",
   updatedAt: "2022-07-25T07:52:09.000Z"
+},{
+  post_id:1,
+  user_id:"3",
+  name:"유리",
+  content:"안녕하세요",
+  img_url:
+  "https://img.jpg1",
+  likes: 2,
+  createdAt: "2023-05-13T07:45:56.000Z",
+  updatedAt: "2022-07-25T07:52:09.000Z"
+},{
+  post_id:1,
+  user_id:"3",
+  name:"유리",
+  content:"안녕하세요",
+  img_url:
+  "https://img.jpg1",
+  likes: 2,
+  createdAt: "2023-05-13T07:45:56.000Z",
+  updatedAt: "2022-07-25T07:52:09.000Z"
+},{
+  post_id:1,
+  user_id:"3",
+  name:"유리",
+  content:"안녕하세요",
+  img_url:
+  "https://img.jpg1",
+  likes: 2,
+  createdAt: "2023-05-13T07:45:56.000Z",
+  updatedAt: "2022-07-25T07:52:09.000Z"
 },
   ]
   const date = (createdAt)=>{
