@@ -1,8 +1,10 @@
+import { useState } from 'react';
 import BoardMakerModal from './BoardMakerModal';
 
-const BoardMaker = ({showBoardModal,setShowBoardModal}) => {
+const BoardMaker = () => {
   const default_profile_url = '/images/default-profile-url.png';
   const img_file_url = '/images/imgfile.png';
+  const [showBoardModal, setShowBoardModal] = useState(false)
 
 
 
@@ -18,8 +20,9 @@ const BoardMaker = ({showBoardModal,setShowBoardModal}) => {
           class='h-9 w-9 flex-none rounded-full '
           src={default_profile_url}
           alt='' role='button'/>
-          <div class='bg-gray-100 hover:bg-gray-200 h-[35px] w-[610px] rounded-full border-2 px-[8px] py-[12px] mb-3' placeholder='최유리' role='button' onClick={BoardMakerModalHandler}>
+          <div class='bg-gray-100 hover:bg-gray-200 h-[35px] w-[610px] rounded-full border-2 px-[8px] py-[12px] mb-3' role='button' onClick={BoardMakerModalHandler}>
           </div>
+          {showBoardModal && <BoardMakerModal showBoardModal={showBoardModal} setShowBoardModal={setShowBoardModal}/>}
         </div>
         <div class='flex justify-center space-x-3 p-2 hover:bg-gray-200 w-[200px] self-center mt-2'>
           <img class="h-6 w-6 flex-none"

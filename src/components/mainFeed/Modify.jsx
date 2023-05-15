@@ -2,28 +2,25 @@
 import { useState } from 'react';
 import useInput from './useInput';
 
-const BoardMakerModal = ({setShowBoardModal,showBoardModal}) => {
+const Modify = ({showBoardModal,setShowBoardModal}) => {
 
   const default_profile_url = '/images/default-profile-url.png';
   const closeIcon = '/images/close.png';
   const imageAddIcon = '/images/imageAddIcon.png';
 
   const [post,postChangeHandler] = useInput('')
-  const [button, setButton] = useState(false)
 
+  console.log(showBoardModal)
   //모달창 닫기
   const closeButtonHandler = () => {
     setShowBoardModal(!showBoardModal)
-    if(post.length > 0){
-      setButton(!button)
-    }
   }
 
   return (
     <div class="h-screen w-screen top-0 left-0 right-0 bottom-0 fixed bg-gray-200 bg-opacity-50 z-10">
       <div class="bg-white h-[600px] w-[580px] relative top-[40%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 p-4 max-w-600 min-w-300 rounded-lg shadow-2xl">
         <div>
-          <div class="border-b-2 pb-4 relative text-[20px] font-semibold">게시물 만들기</div>
+          <div class="border-b-2 pb-4 relative text-[20px] font-semibold">게시물 수정하기</div>
           
           <div class="h-10 w-10 rounded-full bg-gray-200  hover:bg-gray-300 absolute right-3 top-3 flex items-center justify-center" role='button' onClick={closeButtonHandler}>
             <img class="h-7 w-7 "
@@ -64,11 +61,11 @@ const BoardMakerModal = ({setShowBoardModal,showBoardModal}) => {
               </label>
             </div>
           </div>
-          <div class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"role='button'>게시</div>
+          <div class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"role='button'>수정</div>
         </div>
       </div>
     </div>
   )
 }
 
-export default BoardMakerModal
+export default Modify
