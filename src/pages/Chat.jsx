@@ -10,9 +10,9 @@ const Chat = () => {
   };
 
   return (
-    <>
+    <div className='w-full'>
       <ChatBox follow={follow} />
-    </>
+    </div>
   );
 };
 
