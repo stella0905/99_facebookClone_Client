@@ -6,7 +6,10 @@ const queryclient = new QueryClient();
 function App() {
     return (
         <QueryClientProvider client={queryclient}>
-            <Router />
+            {/*👇 전체 background color */}
+            <div className="bg-gray-200">
+                <Router />
+            </div>
         </QueryClientProvider>
     );
 }
