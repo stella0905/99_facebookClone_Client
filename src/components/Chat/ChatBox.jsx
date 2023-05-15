@@ -5,14 +5,14 @@ import ChatFollowInfo from './ChatFollowInfo';
 const ChatBox = ({ follow }) => {
   const { profile_url } = follow;
   return (
-    <div className='bg-white rounded-lg shadow-md p-4 max-w-3xl mx-auto'>
+    <div className='bg-white rounded-lg shadow-md p-4 max-w-4xl mx-auto'>
       <div className='flex items-center justify-between mb-4'>
         <ChatFollowInfo follow={follow} />
       </div>
       <div className='chat-boxs'>
         <div className='chat-box'>
           <p className='text-sm text-center text-gray-800 mb-10'>
-            (토) 오전 18:03
+            (토) 오후 18:03
           </p>
           <div className='flex items-end'>
             <div className='flex flex-col space-y-1 text-xs max-w-xs mx-2 order-2 items-start'>
@@ -27,8 +27,8 @@ const ChatBox = ({ follow }) => {
                 </span>
               </div>
               <div>
-                <span className='px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600'>
-                  그럼 연락할게
+                <span className='px-4 py-2 rounded-lg inline-block rounded-tl-none bg-gray-300 text-gray-600'>
+                  나랑 같이 코딩할래?
                 </span>
               </div>
             </div>
@@ -64,8 +64,8 @@ const ChatBox = ({ follow }) => {
                 </span>
               </div>
               <div>
-                <span className='px-4 py-2 rounded-lg inline-block rounded-tl-none bg-gray-300 text-gray-600'>
-                  나랑 같이 코딩할래?
+                <span className='px-4 py-2 rounded-lg inline-block rounded-bl-none bg-gray-300 text-gray-600'>
+                  그럼 연락할게
                 </span>
               </div>
             </div>
