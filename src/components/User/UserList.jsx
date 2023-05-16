@@ -4,11 +4,13 @@ import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { detailSprint, userSearch } from '../axios/users';
 import useInput from 'components/mainFeed/useInput';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const UserList = () => {
   const [name, onChangeSearchNameHandler]= useInput('');
   const [searchEnabled, setSearchEnabled] = useState(false);
   const [searchUsers, setSearchUsers] = useState([])
+
 
   const mutation = useMutation((name)=> userSearch(name),{
     onSuccess:(data)=>{
@@ -16,7 +18,6 @@ const UserList = () => {
       setSearchEnabled(true)
     }
   })
-
   const profile = {
     user_id: 1,
     name: '김수진',
@@ -26,7 +27,7 @@ const UserList = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    mutation.mutate(name)// 검색 버튼 클릭 시 요청 활성화
+    mutation.mutate(name)
   };
 
 
