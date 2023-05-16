@@ -1,54 +1,21 @@
 import UserItem from './UserItem';
 import { BsSearch } from 'react-icons/bs';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { detailSprint, userSearch } from '../axios/users';
+import useInput from 'components/mainFeed/useInput';
+import { useEffect, useState } from 'react';
 
 const UserList = () => {
-  const users = [
-    {
-      user_id: 1,
-      name: '강한나',
-      profile_url: '',
-    },
-    {
-      user_id: 2,
-      name: '강주희',
-      profile_url: '',
-    },
-    {
-      user_id: 3,
-      name: '김현빈',
-      profile_url:
-        'https://images.unsplash.com/photo-1680688771355-2840ed0134b6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDUzfHRvd0paRnNrcEdnfHxlbnwwfHx8fA%3D%3D&auto=format&fit=crop&w=800&q=60',
-    },
-    {
-      user_id: 4,
-      name: '박지성',
-      profile_url:
-        'https://images.unsplash.com/photo-1517841905240-472988babdf9?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      user_id: 5,
-      name: '송중기',
-      profile_url:
-        'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      user_id: 6,
-      name: '우도환',
-      profile_url: '',
-    },
-    {
-      user_id: 7,
-      name: '차은우',
-      profile_url:
-        'https://images.unsplash.com/photo-1679235214031-a8ab50e0c803?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDIxMHx0b3dKWkZza3BHZ3x8ZW58MHx8fHw%3D&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    {
-      user_id: 8,
-      name: '한승연',
-      profile_url:
-        'https://images.unsplash.com/photo-1668277272458-7bdd6ea0acf3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHx0b3BpYy1mZWVkfDE0Nnx0b3dKWkZza3BHZ3x8ZW58MHx8fHw%3D&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-  ];
+  const [name, onChangeSearchNameHandler]= useInput('');
+  const [searchEnabled, setSearchEnabled] = useState(false);
+  const [searchUsers, setSearchUsers] = useState([])
+
+  const mutation = useMutation((name)=> userSearch(name),{
+    onSuccess:(data)=>{
+      setSearchUsers(data.userInfos)
+      setSearchEnabled(true)
+    }
+  })
 
   const profile = {
     user_id: 1,
@@ -58,8 +25,13 @@ const UserList = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
+    mutation.mutate(name)// 검색 버튼 클릭 시 요청 활성화
   };
+
+
+
+
   return (
     <div className='ml-3 my-3 w-70'>
       <div className='flex gap-x-4 items-center mb-5'>
@@ -86,15 +58,20 @@ const UserList = () => {
           <input
             type='text'
             id='search'
+            value={name}
+            onChange={onChangeSearchNameHandler}
             className='bg-gray-100 text-sm rounded-full block w-72 pl-10 pr-2.5 py-2.5 placeholder-gray-600'
             placeholder='친구 검색'
           />
         </div>
       </form>
       <ul>
-        {users?.map((user) => (
-          <UserItem key={user.user_id} user={user} />
-        ))}
+      {searchEnabled && searchUsers.length > 0 ? (
+        <UserItem users={searchUsers} />
+      ) : (
+        searchEnabled && <p>검색 결과가 없습니다.</p>
+      )}
+
       </ul>
     </div>
   );
