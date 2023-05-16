@@ -55,9 +55,14 @@ export const loginUser = async (user) => {
       throw new Error('response 없음:::::::', response);
     }
     const { Authorization, refreshtoken, message } = response.data;
+    const { name, profile_url } = response.data.loginData;
+    // console.log(name, profile_url);
+
     return {
       Authorization,
       refreshtoken,
+      name,
+      profile_url
     };
   } catch (error) {
     if (error.response && error.response.status === 412) {
