@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useInput from "./useInput";
+import { useMutation } from "react-query";
+import { addPost } from "api/board";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -19,9 +21,17 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
         }
     };
 
+    // 서버로 게시글 post
+    const mutation = useMutation(addPost);
+    const handleSubmit = () => {
+        mutation.mutate({ post, file });
+    };
+
     // 이미지 파일 상태 관리
     const [file, setFile] = useState(null);
+
     console.log(file);
+
     // 이미지 미리보기 파일 관리
     const [imagePreviewUrl, setImagePreviewUrl] = useState("");
     // console.log(imagePreviewUrl);
@@ -103,7 +113,11 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                             )}
                         </div>
                     </div>
-                    <div class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5" role="button">
+                    <div
+                        class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"
+                        role="button"
+                        onClick={handleSubmit}
+                    >
                         게시
                     </div>
                 </div>
