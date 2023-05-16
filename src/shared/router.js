@@ -2,7 +2,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Chat from "pages/Chat";
 import Home from "pages/Home";
 import Login from "pages/Login";
-import Signup from "pages/SignUp";
 import Layout from "components/Layout";
 import WithoutHeaderLayout from "components/WithoutHeaderLayout";
 import NotFound from "pages/NotFound";
@@ -22,7 +21,6 @@ const Router = () => (
             {/* footer 만 있는 layout 을 통해 랜더링될 페이지들 라우팅 */}
             <Route path="/" element={<WithoutHeaderLayout />}>
                 <Route path="login" element={<Login />} />
-                <Route path="signup" element={<Signup />} />
             </Route>
         </Routes>
     </BrowserRouter>
