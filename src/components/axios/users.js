@@ -43,5 +43,8 @@ const followList = async () => {
   }
 }
 
+//팔로워 삭제
+
+
 
 export { userSearch, followUser, followList }
