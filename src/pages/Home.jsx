@@ -1,26 +1,36 @@
 import FollowList from 'components/Follow/FollowList';
 import UserList from 'components/User/UserList';
 import MainFeed from 'components/mainFeed/MainFeed';
-import React from 'react';
-import { useSelector } from 'react-redux';
+import Cookies from 'js-cookie';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const { name, profile_url } = useSelector((state) => state.users);
-  console.log('가져온값', name, profile_url);
+  const navigate = useNavigate();
+  const token = Cookies.get('Authorization');
+
+  useEffect(() => {
+    if (!token) {
+      alert('로그인을 해주세요');
+      navigate('/login');
+    }
+  }, [token, navigate]);
 
   return (
-    <div className='flex justify-center w-full'>
-      <div>
-        <UserList />
+    token && (
+      <div className='flex justify-center w-full'>
+        <div>
+          <UserList />
+        </div>
+        <div className='mx-auto'>
+          <MainFeed />
+        </div>
+        <div>
+          <FollowList />
+        </div>
       </div>
-      <div className='mx-auto'>
-        <MainFeed />
-      </div>
-      <div>
-        <FollowList />
-      </div>
-    </div>
-  ); 
+    )
+  );
 };
 
 export default Home;
