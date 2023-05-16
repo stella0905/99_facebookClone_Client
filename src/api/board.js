@@ -34,3 +34,41 @@ export const addPost = async ({ post, file }) => {
         throw error;
     }
 };
+
+// 포스트 조회
+export const getPosts = async () => {
+    try {
+        const response = await axios.get(`${process.env.REACT_APP_SERVER_URL}api/post`);
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
+
+// 포스트 삭제
+export const deletePost = async (postId) => {
+    try {
+        const response = await axios.delete(`${process.env.REACT_APP_SERVER_URL}api/post/${postId}`, {
+            headers: {
+                // "Content-Type": "multipart/form-data",
+                Authorization: Cookies.get("Authorization"),
+                refreshtoken: Cookies.get("refreshtoken"),
+            },
+        });
+        return response.data;
+    } catch (error) {
+        //   if (error.response) {
+        //     console.log(error.response.data);
+        //     console.log(error.response.status);
+        //     console.log(error.response.headers);
+        //   } else if (error.request) {
+
+        //     console.log(error.request);
+        //   } else {
+        //     console.log("Error", error.message);
+        //   }
+        //   console.log(error.config);
+        throw error;
+    }
+};

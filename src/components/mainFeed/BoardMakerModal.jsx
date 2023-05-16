@@ -21,8 +21,32 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
         }
     };
 
-    // 서버로 게시글 post
-    const mutation = useMutation(addPost);
+    // 게시글 작성
+    const mutation = useMutation(addPost, {
+        onSuccess: (response) => {
+            alert("게시물이 작성되었습니다.");
+            setShowBoardModal(false);
+        },
+        onError: (error) => {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 400:
+                        alert("요청한 데이터 형식이 올바르지 않습니다.");
+                        break;
+                    case 412:
+                        alert("게시글 내용을 입력해 주세요.");
+                        break;
+                    case 401:
+                        alert("로그인이 필요한 기능입니다.");
+                        break;
+                    default:
+                        alert(`${error.message} 게시글을 작성하는데 실패했습니다.`);
+                }
+            } else {
+                alert(`${error.message} 네트워크 연결을 확인해주세요.`);
+            }
+        },
+    });
     const handleSubmit = () => {
         mutation.mutate({ post, file });
     };
