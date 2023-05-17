@@ -1,6 +1,5 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
-import { Navigate, useNavigate } from 'react-router-dom';
 const API_URL = process.env.REACT_APP_SERVER_URL;
 
 // 인스턴스 생성
@@ -88,6 +87,8 @@ api.interceptors.response.use(
     // 토큰 만료-> access 만료되면 메시지 받아서 refresh token을 다시 보냄
     if (error.response) {
       const { status, data } = error.response;
+      const { errorMessage } = data;
+
       if (status === 401) {
         // 토큰값이 없으면 재로그인(accessToken)
         // 액세스 있고 리프레쉬 없으면?  >>> 자동으로 재발급? / 우리가 넣어줘야하는지
@@ -123,17 +124,18 @@ api.interceptors.response.use(
         //     window.location.reload();
         //   }
         // }
-      } else if (status === 403) {
-        // 권한 없음
-        // navigate('/error/403');
-      } else if (status === 412) {
-        // 토큰 만료
-        const { errorMessage } = data;
-        console.log(errorMessage);
-        // alert(errorMessage);
-        // 에러 메시지 전달
-        throw new Error(errorMessage);
+      // } else if (status === 403) {
+      //   // 권한 없음
+      //   alert(errorMessage);
+      //   // navigate('/error/403');
+      // } else if (status === 412) {
+      //   // 토큰 만료
+      //   // alert(errorMessage);
+      //   // 에러 메시지 전달
+      //   alert(errorMessage);
+      //   // throw new Error(errorMessage);
       }
+      alert(errorMessage);
     }
     return Promise.reject(error);
   }
