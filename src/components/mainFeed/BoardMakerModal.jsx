@@ -1,5 +1,7 @@
 import { useState } from "react";
 import useInput from "./useInput";
+import { useMutation } from "react-query";
+import { addPost } from "api/board";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -19,9 +21,41 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
         }
     };
 
+    // 게시글 작성
+    const mutation = useMutation(addPost, {
+        onSuccess: (response) => {
+            alert("게시물이 작성되었습니다.");
+            setShowBoardModal(false);
+        },
+        onError: (error) => {
+            if (error.response) {
+                switch (error.response.status) {
+                    case 400:
+                        alert("요청한 데이터 형식이 올바르지 않습니다.");
+                        break;
+                    case 412:
+                        alert("게시글 내용을 입력해 주세요.");
+                        break;
+                    case 401:
+                        alert("로그인이 필요한 기능입니다.");
+                        break;
+                    default:
+                        alert(`${error.message} 게시글을 작성하는데 실패했습니다.`);
+                }
+            } else {
+                alert(`${error.message} 네트워크 연결을 확인해주세요.`);
+            }
+        },
+    });
+    const handleSubmit = () => {
+        mutation.mutate({ post, file });
+    };
+
     // 이미지 파일 상태 관리
     const [file, setFile] = useState(null);
+
     console.log(file);
+
     // 이미지 미리보기 파일 관리
     const [imagePreviewUrl, setImagePreviewUrl] = useState("");
     // console.log(imagePreviewUrl);
@@ -103,7 +137,12 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                             )}
                         </div>
                     </div>
-                    <div className="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5" role="button">
+                    <div
+                        class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"
+                        role="button"
+                        onClick={handleSubmit}
+                    >
+
                         게시
                     </div>
                 </div>
