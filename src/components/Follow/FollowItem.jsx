@@ -1,11 +1,8 @@
-import React from 'react';
 import { ReactComponent as Chat } from 'assets/chat.svg';
-import { useNavigate } from 'react-router-dom';
+import { followDelete } from 'components/axios/users';
 import { FiUserMinus } from 'react-icons/fi';
 import { useMutation, useQueryClient } from 'react-query';
-
-
-import { followDelete } from 'components/axios/users';
+import { useNavigate } from 'react-router-dom';
 
 const FollowItem = ({ data }) => {
   const default_profile_url = '/images/default-profile-url.png';
@@ -16,7 +13,6 @@ const FollowItem = ({ data }) => {
   };
   const mutation = useMutation(followDelete, {
     onSuccess: () => {
-      QueryClient.invalidateQueries("followList")
       alert('삭제 성공!')
       queryClient.invalidateQueries("followList")
     },
