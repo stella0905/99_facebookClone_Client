@@ -10,19 +10,19 @@ const Board = () => {
     const seeMoreIcon = "/images/seeMoreIcon.png";
     const likeIcon = "/images/likeIcon.png";
 
-    const queryClient = useQueryClient();
+    // const queryClient = useQueryClient();
 
     // 각 게시물 수정, 삭제 모달 state 관리
     // const [showButtons, setShowButtons] = useState(false);
     const [showButtons, setShowButtons] = useState({});
 
     const [showProfileButtons, setShowProfileButtons] = useState(false);
-    const [showEditModal, setShowEditModal] = useState(false);
+    // const [showEditModal, setShowEditModal] = useState(false);
     const [showBoardModal, setShowBoardModal] = useState(false);
 
     // 게시글 조회
     const { data, isLoading, isError } = useQuery("posts", getPosts);
-    console.log(data);
+    // console.log(`게시글 조회 데이터 불러오기`,data);
 
     // console.log(data);
 
@@ -99,30 +99,30 @@ const Board = () => {
                 const imageUrl = imageItem ? imageItem.img_url : "default_image_url";
 
                 return (
-                    <div key={item.post_id} class="shadow-md overflow-hidden bg-white items-center mb-5">
-                        <div class=" px-[12px] py-[12px] bg-wight-100 ">
-                            <div class="flex space-x-[420px] relative">
-                                <div class="flex flex-low space-x-2">
+                    <div key={item.post_id} className="shadow-md overflow-hidden bg-white items-center mb-5">
+                        <div className=" px-[12px] py-[12px] bg-wight-100 ">
+                            <div className="flex space-x-[420px] relative">
+                                <div className="flex flex-low space-x-2">
                                     <img
-                                        class="h-9 w-9 flex-none rounded-full self-center"
+                                        className="h-9 w-9 flex-none rounded-full self-center"
                                         src={default_profile_url}
                                         alt=""
                                         role="button"
                                         onClick={showFollowProfileButtonHandler}
                                     />
                                     {showProfileButtons && (
-                                        <div class="absolute top-11">
+                                        <div className="absolute top-11">
                                             <FollowModal userName={item.name} />
                                         </div>
                                     )}
-                                    <div class=" flex-col ">
-                                        <div class="text-left">{item.name}</div>
-                                        <div class="text-xs text-gray-600/50">{item.createdAt}</div>
+                                    <div className=" flex-col ">
+                                        <div className="text-left">{item.name}</div>
+                                        <div className="text-xs text-gray-600/50">{item.createdAt}</div>
                                     </div>
                                 </div>
-                                <div class="bg-cover bg-center object-contain self-center">
+                                <div className="bg-cover bg-center object-contain self-center">
                                     <img
-                                        class="h-7 w-7 hover:bg-gray-200 rounded-full "
+                                        className="h-7 w-7 hover:bg-gray-200 rounded-full "
                                         role="button"
                                         src={seeMoreIcon}
                                         alt=""
@@ -131,9 +131,9 @@ const Board = () => {
                                     />
                                     {/* {showButtons && ( */}
                                     {showButtons[item.post_id] && (
-                                        <div class="absolute right-0">
-                                            <div class="pb-4 drop-shadow">
-                                                <div class=" flex flex-col justify-center space-y-3 bg-white w-[120px] h-20  ">
+                                        <div className="absolute right-0">
+                                            <div className="pb-4 drop-shadow">
+                                                <div className=" flex flex-col justify-center space-y-3 bg-white w-[120px] h-20  ">
                                                     <button onClick={onClickEditButtonHandler}>수정</button>
                                                     <button onClick={() => onClickRemoveButtonHandler(item.post_id)}>
                                                         삭제
@@ -148,19 +148,19 @@ const Board = () => {
                                 </div>
                             </div>
                             <div>
-                                <div class="text-left">{item.content}</div>
+                                <div className="text-left">{item.content}</div>
                             </div>
                             <div>
-                                <img class="h-[470px] w-[648px] object-contain" src={imageUrl} alt="" />
+                                <img className="h-[470px] w-[648px] object-contain" src={imageUrl} alt="" />
                             </div>
-                            <div class="flex flex-row space-x-2 mt-2 ml-2">
+                            <div className="flex flex-row space-x-2 mt-2 ml-2">
                                 <img
-                                    class="h-8 w-8 object-contain rounded-full hover:animate-shake "
+                                    className="h-8 w-8 object-contain rounded-full hover:animate-shake "
                                     role="button"
                                     src={likeIcon}
                                     alt=""
                                 />
-                                <span class="self-center">{item.likes}개</span>
+                                <span className="self-center">{item.likes}개</span>
                             </div>
                         </div>
                     </div>
