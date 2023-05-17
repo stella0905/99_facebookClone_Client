@@ -5,7 +5,7 @@ import { addPost } from "api/board";
 import { useNavigate } from "react-router-dom";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
-    const default_profile_url = "/images/default-profile-url.png";
+    // const default_profile_url = "/images/default-profile-url.png";
     const closeIcon = "/images/close.png";
     const imageAddIcon = "/images/imageAddIcon.png";
 
