@@ -6,11 +6,14 @@ import { loginUser } from 'api/auth';
 import Cookies from 'js-cookie';
 import { setName, setProfileUrl } from '../../redux/modules/usersSlice';
 import { useDispatch } from 'react-redux';
+import { useQueryClient } from 'react-query';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
   const dispatch = useDispatch();
+
+  const queryClient = useQueryClient();
 
   const {
     register,
@@ -26,6 +29,9 @@ const LoginForm = () => {
       const { Authorization, refreshtoken, name, profile_url } = response;
       dispatch(setName(name));
       dispatch(setProfileUrl(profile_url));
+
+      //친구목록 조회
+      queryClient.invalidateQueries("followList")
 
       //유저정보 로컬스토리지 저장 
       const user = {
