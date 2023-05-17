@@ -89,3 +89,31 @@ export const likePost = async (postId) => {
     throw error;
   }
 };
+
+// 게시글 수정
+export const modifyPost = async ({ postId, postContent, image, imageId }) => {
+    console.log(`포스트 아이디`, postId);
+    console.log(`포스트 콘텐츠`, postContent);
+    console.log(`포스트 이미지`, image);
+    console.log(`포스트 이미지아이디`, imageId);
+
+    try {
+        const formData = new FormData();
+        formData.append("content", postContent);
+        formData.append("addImg", image);
+        formData.append("removeImgId", [imageId]);
+
+        const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}api/post/${postId}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+                Authorization: Cookies.get("Authorization"),
+                refreshtoken: Cookies.get("refreshtoken"),
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        console.error(error);
+        throw error;
+    }
+};
