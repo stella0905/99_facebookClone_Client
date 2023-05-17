@@ -119,6 +119,7 @@ const Board = () => {
     return (
         <>
             {postData.map((item) => {
+
                 // post_id와 일치하는 이미지 url 찾기. -> url이 존재하지 않으면 default 이미지 사용
                 const imageItem = imageData.find((img) => img.post_id === item.post_id);
                 const imageUrl = imageItem ? imageItem.img_url : "default_image_url";

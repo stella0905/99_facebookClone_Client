@@ -1,6 +1,6 @@
 import { followUser } from 'components/axios/users';
 import { FiUserPlus } from 'react-icons/fi';
-import { useMutation } from 'react-query';
+import {  QueryClient, useMutation } from 'react-query';
 
 const UserItem = ({users}) => {
 
@@ -9,6 +9,7 @@ const UserItem = ({users}) => {
   const mutation = useMutation(followUser, {
     onSuccess: () => {
       console.log('저장성공')
+      QueryClient.invalidateQueries("followList")
     },
     onError:(error) => {
       alert(error.message)
@@ -40,7 +41,7 @@ const UserItem = ({users}) => {
             <p className='text-sm font-semibold leading-6 text-gray-900'>
               {user.name}
             </p>
-            <FiUserPlus className='cursor-pointer' onClick={()=>handleAddClick(user.user_id)} />
+            <FiUserPlus className='cursor-pointer self-center' onClick={()=>handleAddClick(user.user_id)} />
           </div>
         </div>
       </li>
