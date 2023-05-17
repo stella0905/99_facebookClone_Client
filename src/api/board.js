@@ -4,6 +4,7 @@ import Cookies from "js-cookie";
 
 // 포스트 작성
 export const createPost = async ({ post, file }) => {
+
     try {
         const formData = new FormData();
         formData.append("content", post);
@@ -75,7 +76,7 @@ export const modifyPost = async ({ postId, postContent, image, imageId }) => {
         // 만약 게시글의 이미지 파일에 수정 사항이 없다면 imageId는 제거 될 Id가 보내지면 안됨. -> 우선 null 으로 처리
         formData.append("removeImgId", [imageId]);
 
-        const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}api/post/${postId}`, formData, {
+        const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}/api/post/${postId}`, formData, {
             headers: {
                 "Content-Type": "multipart/form-data",
                 Authorization: Cookies.get("Authorization"),

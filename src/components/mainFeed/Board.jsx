@@ -115,6 +115,7 @@ const Board = () => {
 
     const postData = data.findAllPost;
     const imageData = data.findAllImg;
+    console.log(postData);
 
     return (
         <>
@@ -131,7 +132,7 @@ const Board = () => {
                                 <div className="flex flex-low space-x-2">
                                     <img
                                         className="h-9 w-9 flex-none rounded-full self-center"
-                                        src={default_profile_url}
+                                        src={item.profile_url}
                                         alt=""
                                         role="button"
                                         onClick={showFollowProfileButtonHandler}
