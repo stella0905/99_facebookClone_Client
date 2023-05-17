@@ -16,7 +16,7 @@ export const formatDate = (stringDate, timeFormat = 'hh:mm:ss') => {
   const year = kstDate.getFullYear();
   const month = String(kstDate.getMonth() + 1).padStart(2, '0');
   const day = String(kstDate.getDate()).padStart(2, '0');
-  const hour = String(kstDate.getHours()).padStart(2, '0');
+  const hour = String(kstDate.getHours()-1).padStart(2, '0');
   const minute = String(kstDate.getMinutes()).padStart(2, '0');
   const second = String(kstDate.getSeconds()).padStart(2, '0');
 
