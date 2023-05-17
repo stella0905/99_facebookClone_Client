@@ -138,7 +138,7 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                         </div>
                     </div>
                     <div
-                        class="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"
+                        className="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"
                         role="button"
                         onClick={handleSubmit}
                     >
