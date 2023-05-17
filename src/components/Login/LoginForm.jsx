@@ -4,10 +4,13 @@ import SignupFormModal from './SignupFormModal';
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from 'api/auth';
 import Cookies from 'js-cookie';
+import { setName, setProfileUrl } from '../../redux/modules/usersSlice';
+import { useDispatch } from 'react-redux';
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState('');
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,12 +23,9 @@ const LoginForm = () => {
       if (errors.email || errors.password) return;
 
       const response = await loginUser(data);
-      const { Authorization, refreshtoken } = response;
-      // console.log(response.data,';llklklklklkll');
-      
-      // console.log('data:::::::::::',data);
-      console.log(response.Authorization,'response');
-      console.log(response.refreshtoken,'refreshtoken');
+      const { Authorization, refreshtoken, name, profile_url } = response;
+      dispatch(setName(name));
+      dispatch(setProfileUrl(profile_url));
       // 토큰 만료 시간 계산 (7일)
       const expirationTime = new Date();
       expirationTime.setDate(expirationTime.getDate() + 7);
@@ -41,12 +41,9 @@ const LoginForm = () => {
         path: '/',
       });
 
-      // 성공하면
-      navigate('/'); // 메인으로 이동
-
+      navigate('/');
     } catch (error) {
-      console.log(error.message);
-      setErrorMessage(error.message); //서버로부터 받은 응답 에러메시지
+      setErrorMessage(error.message);
     }
   };
   return (

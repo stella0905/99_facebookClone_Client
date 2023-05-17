@@ -1,6 +1,12 @@
+import { followList } from 'components/axios/users';
+import { useEffect } from 'react';
+import { useQuery } from 'react-query';
 import FollowItem from './FollowItem';
 
 const FollowList = () => {
+
+  // const { data } = useQuery("followList",followList);
+
   const follows = [
     {
       follow_id: 1,
@@ -50,9 +56,9 @@ const FollowList = () => {
         친구 목록
       </p>
       <ul>
-        {follows?.map((follow) => (
+        {/* {data?.map((follow) => (
           <FollowItem key={follow.follow_id} follow={follow} />
-        ))}
+        ))} */}
       </ul>
     </div>
   );
