@@ -1,10 +1,9 @@
-import UserItem from './UserItem';
-import { BsSearch } from 'react-icons/bs';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { detailSprint, userSearch } from '../axios/users';
 import useInput from 'components/mainFeed/useInput';
-import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useState } from 'react';
+import { BsSearch } from 'react-icons/bs';
+import { useMutation } from 'react-query';
+import { userSearch } from '../axios/users';
+import UserItem from './UserItem';
 
 const UserList = () => {
   const [searchName, onChangeSearchNameHandler]= useInput('');
