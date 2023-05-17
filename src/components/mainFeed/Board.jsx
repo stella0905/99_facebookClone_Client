@@ -10,6 +10,7 @@ import {
   useQueryClient,
 } from 'react-query';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { formatDate } from 'shared/formatDate';
 
 const Board = () => {
   const default_profile_url = '/images/default-profile-url.png';
@@ -139,7 +140,7 @@ const Board = () => {
   return (
     <>
       {postData.map((item) => {
-        // console.log(item);
+        console.log(item);
         // post_id와 일치하는 이미지 url 찾기. -> url이 존재하지 않으면 default 이미지 사용
         const imageItem = imageData.find((img) => img.post_id === item.post_id);
         const imageUrl = imageItem ? imageItem.img_url : 'default_image_url';
@@ -167,7 +168,7 @@ const Board = () => {
                   <div className=' flex-col '>
                     <div className='text-left'>{item.name}</div>
                     <div className='text-xs text-gray-600/50'>
-                      {item.createdAt}
+                      {formatDate(item.updatedAt) || formatDate(item.createdAt)}
                     </div>
                   </div>
                 </div>
