@@ -1,15 +1,18 @@
 import { followUser } from 'components/axios/users';
 import { FiUserPlus } from 'react-icons/fi';
-import {  QueryClient, useMutation } from 'react-query';
+import {  useMutation, useQueryClient } from 'react-query';
+
 
 const UserItem = ({users}) => {
 
   const default_profile_url = '/images/default-profile-url.png';
+  const queryClient = useQueryClient();
 
   const mutation = useMutation(followUser, {
     onSuccess: () => {
-      console.log('저장성공')
-      QueryClient.invalidateQueries("followList")
+
+      queryClient.invalidateQueries("followList")
+
     },
     onError:(error) => {
       alert(error.message)

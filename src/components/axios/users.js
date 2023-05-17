@@ -31,6 +31,7 @@ const followUser = async (props) => {
     })
     return response.data;
   } catch (error) {
+    console.log(error)
     throw new Error(error.response.data.message)
   }
 }
