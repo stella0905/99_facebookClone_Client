@@ -1,11 +1,11 @@
 import { useState } from "react";
 import useInput from "./useInput";
 import { useMutation } from "react-query";
-import { addPost } from "api/board";
+import { createPost } from "api/board";
 import { useNavigate } from "react-router-dom";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
-    const default_profile_url = "/images/default-profile-url.png";
+    // const default_profile_url = "/images/default-profile-url.png";
     const closeIcon = "/images/close.png";
     const imageAddIcon = "/images/imageAddIcon.png";
 
@@ -31,7 +31,7 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     }
 
     // 게시글 작성
-    const mutation = useMutation(addPost, {
+    const mutation = useMutation(createPost, {
         onSuccess: (response) => {
             alert("게시물이 작성되었습니다.");
             setShowBoardModal(false);
