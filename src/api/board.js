@@ -68,15 +68,17 @@ export const likePost = async (postId) => {
 
 // 게시글 수정
 export const modifyPost = async ({ postId, postContent, image, imageId }) => {
-    console.log(`포스트 아이디`, postId);
-    console.log(`포스트 콘텐츠`, postContent);
-    console.log(`포스트 이미지`, image);
-    console.log(`포스트 이미지아이디`, imageId);
+    // console.log(`포스트 아이디`, postId);
+    // console.log(`포스트 콘텐츠`, postContent);
+    // console.log(`포스트 이미지`, image);
+    // console.log(`포스트 이미지아이디`, imageId);
 
     try {
         const formData = new FormData();
         formData.append("content", postContent);
         formData.append("addImg", image);
+        // 아직 다중이미지 처리가 되어있지 않기 때문에
+        // 만약 게시글의 이미지 파일에 수정 사항이 없다면 imageId는 제거 될 Id가 보내지면 안됨. -> 우선 null 으로 처리
         formData.append("removeImgId", [imageId]);
 
         const response = await axios.put(`${process.env.REACT_APP_SERVER_URL}api/post/${postId}`, formData, {
