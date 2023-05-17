@@ -11,7 +11,7 @@ export const formatDate = (stringDate, timeFormat = 'hh:mm:ss') => {
     return '';
   }
 
-  const kstOffset = 9 * 60 * 60 * 1000;
+  const kstOffset = 1 * 60 * 60 * 1000;
   const kstDate = new Date(date.getTime() + kstOffset);
   const year = kstDate.getFullYear();
   const month = String(kstDate.getMonth() + 1).padStart(2, '0');

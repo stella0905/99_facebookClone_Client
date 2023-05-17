@@ -1,16 +1,18 @@
 import { useRef, useState } from "react";
 import useInput from "./useInput";
-import { QueryClient, useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { modifyPost } from "api/board";
 
+// imageId 중 삭제될 imageId 값만을 골라내 api로 전달하는 로직 구현 필요.
 const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId }) => {
     const default_profile_url = "/images/default-profile-url.png";
     const closeIcon = "/images/close.png";
 
+    const queryClient = useQueryClient();
     // 파일 수정
     const mutation = useMutation(modifyPost, {
         onSuccess: () => {
-            QueryClient.invalidateQueries("posts");
+            queryClient.invalidateQueries("posts");
         },
         onError: (error) => {
             console.error(error);
