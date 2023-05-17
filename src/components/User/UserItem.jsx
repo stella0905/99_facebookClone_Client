@@ -2,6 +2,7 @@ import { followUser } from 'components/axios/users';
 import { FiUserPlus } from 'react-icons/fi';
 import {  useMutation, useQueryClient } from 'react-query';
 
+
 const UserItem = ({users}) => {
 
   const default_profile_url = '/images/default-profile-url.png';
@@ -9,7 +10,9 @@ const UserItem = ({users}) => {
 
   const mutation = useMutation(followUser, {
     onSuccess: () => {
+
       queryClient.invalidateQueries("followList")
+
     },
     onError:(error) => {
       alert(error.message)

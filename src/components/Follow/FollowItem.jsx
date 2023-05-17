@@ -3,6 +3,8 @@ import { ReactComponent as Chat } from 'assets/chat.svg';
 import { useNavigate } from 'react-router-dom';
 import { FiUserMinus } from 'react-icons/fi';
 import { useMutation, useQueryClient } from 'react-query';
+
+
 import { followDelete } from 'components/axios/users';
 
 const FollowItem = ({ data }) => {
@@ -14,6 +16,7 @@ const FollowItem = ({ data }) => {
   };
   const mutation = useMutation(followDelete, {
     onSuccess: () => {
+      QueryClient.invalidateQueries("followList")
       alert('삭제 성공!')
       queryClient.invalidateQueries("followList")
     },
