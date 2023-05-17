@@ -5,7 +5,7 @@ import { createPost } from "api/board";
 import { useNavigate } from "react-router-dom";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
-    // const default_profile_url = "/images/default-profile-url.png";
+    const default_profile_url = "/images/default-profile-url.png";
     const closeIcon = "/images/close.png";
     const imageAddIcon = "/images/imageAddIcon.png";
 
@@ -13,10 +13,10 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     const [post, postChangeHandler] = useInput("");
     const [button, setButton] = useState(false);
 
-    const isValidUrl=(url)=>{
+    const isValidUrl = (url) => {
         const pattern = /^(https?:\/\/)?([\w.-]+)\.([a-zA-Z]{2,6})(\/[\w.-]*)*\/?$/;
         return pattern.test(url);
-    }
+    };
 
     //모달창 닫기
     const closeButtonHandler = () => {
@@ -101,7 +101,11 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                         <img className="h-7 w-7 " src={closeIcon} alt="" />
                     </div>
                     <div className="flex flex-row space-x-2 mt-3">
-                        <img className="h-9 w-9 flex-none rounded-full self-center" src={isValidUrl(user.profile_url) ? user.profile_url : default_profile_url} alt="" />
+                        <img
+                            className="h-9 w-9 flex-none rounded-full self-center"
+                            src={isValidUrl(user.profile_url) ? user.profile_url : default_profile_url}
+                            alt=""
+                        />
                         <div className="text-left">{user.name}</div>
                     </div>
                     <form
