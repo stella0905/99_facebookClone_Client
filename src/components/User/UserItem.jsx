@@ -1,6 +1,6 @@
-import { followUser } from 'components/axios/users';
+import { followUser } from 'api/users';
 import { FiUserPlus } from 'react-icons/fi';
-import {  useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
 
 
 const UserItem = ({users}) => {
@@ -10,9 +10,7 @@ const UserItem = ({users}) => {
 
   const mutation = useMutation(followUser, {
     onSuccess: () => {
-
       queryClient.invalidateQueries("followList")
-
     },
     onError:(error) => {
       alert(error.message)

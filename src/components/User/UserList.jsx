@@ -2,7 +2,8 @@ import useInput from "components/mainFeed/useInput";
 import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useMutation } from "react-query";
-import { userSearch } from "../axios/users";
+import { Navigate } from "react-router-dom";
+import { userSearch } from "../../api/users";
 import UserItem from "./UserItem";
 
 const UserList = () => {
@@ -10,9 +11,12 @@ const UserList = () => {
     const [searchEnabled, setSearchEnabled] = useState(false);
     const [searchUsers, setSearchUsers] = useState([]);
 
-    //로컬스토리지에서 유저정보 불러오기
+    //로컬스토리지에서 유저정보 불러오고 값이 없다면 로그인 화면으로 이동
     const storedUser = localStorage.getItem("user");
     const user = JSON.parse(storedUser);
+    if (!user) {
+    Navigate("/login");
+    }
 
     //친구검색 API
     const mutation = useMutation((name) => userSearch(name), {
@@ -33,11 +37,11 @@ const UserList = () => {
             <div className="flex gap-x-4 items-center mb-5">
                 <img
                     className="h-7 w-7 flex-none rounded-full bg-gray-50"
-                    // src={user.profile_url}
+                    src={user.profile_url}
                     alt="profile_url"
                 />
                 <div className="flex justify-between gap-x-40">
-                    {/* <p className="text-sm font-semibold leading-6 text-gray-900">{user.name}</p> */}
+                    <p className="text-sm font-semibold leading-6 text-gray-900">{user.name}</p>
                 </div>
             </div>
             <p className="text-xl font-bold leading-6 text-gray-900 my-3">사람</p>

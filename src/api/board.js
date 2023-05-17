@@ -4,7 +4,7 @@ import Cookies from "js-cookie";
 
 // 포스트 작성
 export const createPost = async ({ post, file }) => {
-    console.log(file);
+
     try {
         const formData = new FormData();
         formData.append("content", post);
@@ -68,11 +68,6 @@ export const likePost = async (postId) => {
 
 // 게시글 수정
 export const modifyPost = async ({ postId, postContent, image, imageId }) => {
-    // console.log(`포스트 아이디`, postId);
-    // console.log(`포스트 콘텐츠`, postContent);
-    // console.log(`포스트 이미지`, image);
-    // console.log(`포스트 이미지아이디`, imageId);
-
     try {
         const formData = new FormData();
         formData.append("content", postContent);
