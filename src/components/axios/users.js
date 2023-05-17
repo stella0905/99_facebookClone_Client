@@ -39,21 +39,21 @@ const followUser = async (props) => {
 const followList = async () => {
   try {
     const response = await jwtInstance.get(`/api/follow`)
+    console.log('response', response)
     return response.data.follow
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.response.data.message)
   }
 }
 
 //팔로워 삭제
 const followDelete = async (props) => {
+  console.log('삭제할 props:', props)
   try {
-    const response = await jwtInstance.delete(`/api/follow`, {
-      follower_user_id: props
-    })
+    const response = await jwtInstance.delete(`/api/follow/${props}`)
     return response.data;
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.response.data.message)
   }
 }
 
