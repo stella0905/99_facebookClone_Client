@@ -1,6 +1,5 @@
 import { signUpUser } from 'api/auth';
 import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 
 const SignupFormModal = () => {
@@ -9,7 +8,6 @@ const SignupFormModal = () => {
   const [profileUrl, setProfileUrl] = useState(null);
   const [errorMessage, setErrorMessage] = useState(null);
   const imgRef = useRef(null);
-  const navigate = useNavigate();
 
   const {
     register,
@@ -41,6 +39,9 @@ const SignupFormModal = () => {
     ) {
       return;
     }
+    if (!imgRef.current.files[0]) {
+      alert('이미지를 등록해주세요');
+    }
 
     const {
       email,
@@ -52,6 +53,7 @@ const SignupFormModal = () => {
       birthMonth,
       birthDay,
       profileUrl,
+      img,
     } = data;
 
     const formData = new FormData();
@@ -64,7 +66,7 @@ const SignupFormModal = () => {
       formData.append('img', imgRef.current.files[0]);
     }
     try {
-      const result = await signUpUser(formData); 
+      const result = await signUpUser(formData);
       reset({
         lastName: '',
         firstName: '',
@@ -75,11 +77,12 @@ const SignupFormModal = () => {
         birthMonth: '',
         birthDay: '',
         gender: '',
+        img:'',
       });
-      closeModal(); // 모달닫고
-      navigate('/');
+      closeModal();
     } catch (error) {
-      setErrorMessage(error.message); // 에러 메시지 출력
+      // setErrorMessage(error.message);
+      console.log(error.message);
     }
   };
 
@@ -143,6 +146,9 @@ const SignupFormModal = () => {
                   id='img'
                   name='img'
                   ref={imgRef}
+                  // {...register('img', {
+                  //   required: '이미지를 등록해주세요.',
+                  // })}
                 />
               </div>
               {/* 이름,성 */}
@@ -190,9 +196,6 @@ const SignupFormModal = () => {
                       value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
                       message: '올바른 이메일 주소를 입력해주세요.',
                     },
-                    // validate: (value) =>
-                    //   value === watch('email_confirmation') ||
-                    //   '이메일 주소가 일치하지 않습니다.',
                   })}
                 />
                 {errors.email && (
@@ -255,7 +258,6 @@ const SignupFormModal = () => {
                 <div className='flex space-x-2'>
                   <div className='flex flex-col w-1/3'>
                     <select
-                      // onChange={handleYearChange}
                       className='border border-gray-300 rounded px-3 py-2 mt-1'
                       {...register('birthYear', {
                         required: '년도를 선택해주세요.',
@@ -278,7 +280,6 @@ const SignupFormModal = () => {
                   </div>
                   <div className='flex flex-col w-1/3'>
                     <select
-                      // onChange={handleMonthChange}
                       className='border border-gray-300 rounded px-3 py-2 mt-1'
                       {...register('birthMonth', {
                         required: '월을 선택해주세요.',
@@ -306,12 +307,6 @@ const SignupFormModal = () => {
                         required: '일을 선택해주세요.',
                       })}
                     >
-                      {/* <option value=''>일</option>
-                      {daysInMonth.map((day) => (
-                        <option key={day} value={day}>
-                          {day}
-                        </option>
-                      ))} */}
                       <option value=''>일</option>
                       {Array.from({ length: 31 }, (_, i) => i + 1).map(
                         (day) => (
@@ -359,18 +354,6 @@ const SignupFormModal = () => {
                       })}
                     />
                   </label>
-                  {/* <label className='flex items-center w-1/3 border border-gray-300 rounded px-3 py-2'>
-                    <span className='flex-grow'>직접 지정</span>
-                    <input
-                      type='radio'
-                      className='form-radio text-blue-500'
-                      name='gender'
-                      value='other'
-                      {...register('gender', {
-                        required: '성별을 선택해주세요.',
-                      })}
-                    />
-                  </label> */}
                 </div>
                 {errors.gender && (
                   <p className='text-red-500 text-xs mt-1'>
