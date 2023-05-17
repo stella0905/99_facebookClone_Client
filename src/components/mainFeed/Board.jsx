@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import FollowModal from "./FollowModal";
-import { getDayMinuteCounter } from "./getDayMinuteCounter";
+// import { getDayMinuteCounter } from "./getDayMinuteCounter";
 import Modify from "./Modify";
 import { deletePost, getPosts } from "api/board";
 import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
@@ -13,16 +13,16 @@ const Board = () => {
     // const queryClient = useQueryClient();
 
     // 각 게시물 수정, 삭제 모달 state 관리
-    // const [showButtons, setShowButtons] = useState(false);
     const [showButtons, setShowButtons] = useState({});
+    const [showBoardModal, setShowBoardModal] = useState({});
+    // 👇
+    // const [showEditModal, setShowEditModal] = useState(false);
 
     const [showProfileButtons, setShowProfileButtons] = useState(false);
-    // const [showEditModal, setShowEditModal] = useState(false);
-    const [showBoardModal, setShowBoardModal] = useState(false);
 
     // 게시글 조회
     const { data, isLoading, isError } = useQuery("posts", getPosts);
-    // console.log(`게시글 조회 데이터 불러오기`,data);
+    // console.log(`게시글 조회 데이터 불러오기`, data);
 
     // console.log(data);
 
@@ -36,8 +36,13 @@ const Board = () => {
         setShowButtons((prevState) => ({ ...prevState, [postId]: !prevState[postId] }));
     };
 
-    const onClickEditButtonHandler = () => {
-        setShowBoardModal(!showBoardModal);
+    // 수정 모달을 닫는 버튼 핸들러
+    const onClickCloseButtonHandler = (postId) => {
+        setShowBoardModal((prev) => ({ ...prev, [postId]: false }));
+    };
+    const onClickEditButtonHandler = (postId) => {
+        setShowButtons((prevState) => ({ ...prevState, [postId]: false }));
+        setShowBoardModal((prev) => ({ ...prev, [postId]: true }));
     };
 
     // 게시글 삭제
@@ -94,6 +99,7 @@ const Board = () => {
     return (
         <>
             {postData.map((item) => {
+                // console.log(item);
                 // post_id와 일치하는 이미지 url 찾기. -> url이 존재하지 않으면 default 이미지 사용
                 const imageItem = imageData.find((img) => img.post_id === item.post_id);
                 const imageUrl = imageItem ? imageItem.img_url : "default_image_url";
@@ -134,7 +140,9 @@ const Board = () => {
                                         <div className="absolute right-0">
                                             <div className="pb-4 drop-shadow">
                                                 <div className=" flex flex-col justify-center space-y-3 bg-white w-[120px] h-20  ">
-                                                    <button onClick={onClickEditButtonHandler}>수정</button>
+                                                    <button onClick={() => onClickEditButtonHandler(item.post_id)}>
+                                                        수정
+                                                    </button>
                                                     <button onClick={() => onClickRemoveButtonHandler(item.post_id)}>
                                                         삭제
                                                     </button>
@@ -142,8 +150,16 @@ const Board = () => {
                                             </div>
                                         </div>
                                     )}
-                                    {showBoardModal && (
-                                        <Modify showBoardModal={showBoardModal} setShowBoardModal={setShowBoardModal} />
+                                    {showBoardModal[item.post_id] && (
+                                        <Modify
+                                            postId={item.post_id}
+                                            imageId={imageItem ? imageItem.image_id : null}
+                                            name={item.name}
+                                            imageUrl={imageUrl}
+                                            content={item.content}
+                                            showBoardModal={showBoardModal[item.post_id]}
+                                            setShowBoardModal={() => onClickCloseButtonHandler(item.post_id)}
+                                        />
                                     )}
                                 </div>
                             </div>
