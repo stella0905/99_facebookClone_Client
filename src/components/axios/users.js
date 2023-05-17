@@ -7,7 +7,8 @@ const instance = axios.create({
 const jwtInstance = axios.create({
   baseURL: process.env.REACT_APP_SERVER_URL,
   headers: {
-    Authorization: Cookies.get("token"),
+    Authorization: Cookies.get("Authorization"),
+    refreshtoken: Cookies.get("refreshtoken")
   },
 });
 
@@ -23,13 +24,14 @@ const userSearch = async (props) => {
 
 //팔로워 추가
 const followUser = async (props) => {
+  console.log('나는 팔로워 추가 ', props)
   try {
     const response = await jwtInstance.post(`/api/follow`, {
-      user_id: props
+      follower_user_id: props
     })
     return response.data;
   } catch (error) {
-    throw new Error(error.message)
+    throw new Error(error.response.data.message)
   }
 }
 
@@ -37,11 +39,23 @@ const followUser = async (props) => {
 const followList = async () => {
   try {
     const response = await jwtInstance.get(`/api/follow`)
-    return response.data
+    return response.data.follow
+  } catch (error) {
+    throw new Error(error.message)
+  }
+}
+
+//팔로워 삭제
+const followDelete = async (props) => {
+  try {
+    const response = await jwtInstance.delete(`/api/follow`, {
+      follower_user_id: props
+    })
+    return response.data;
   } catch (error) {
     throw new Error(error.message)
   }
 }
 
 
-export { userSearch, followUser, followList }
+export { userSearch, followUser, followList, followDelete }

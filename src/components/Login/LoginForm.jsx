@@ -26,6 +26,14 @@ const LoginForm = () => {
       const { Authorization, refreshtoken, name, profile_url } = response;
       dispatch(setName(name));
       dispatch(setProfileUrl(profile_url));
+
+      //유저정보 로컬스토리지 저장 
+      const user = {
+        name,
+        profile_url
+      }
+      localStorage.setItem('user',JSON.stringify(user))
+
       // 토큰 만료 시간 계산 (7일)
       const expirationTime = new Date();
       expirationTime.setDate(expirationTime.getDate() + 7);
