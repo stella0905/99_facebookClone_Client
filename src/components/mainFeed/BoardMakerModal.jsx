@@ -2,6 +2,7 @@ import { useState } from "react";
 import useInput from "./useInput";
 import { useMutation } from "react-query";
 import { addPost } from "api/board";
+import { useSelector } from "react-redux";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -53,7 +54,10 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     // 이미지 파일 상태 관리
     const [file, setFile] = useState(null);
 
-    console.log(file);
+    const userName = useSelector((state) => state.users.name);
+    const profileUrl = useSelector((state) => state.users.profile_url);
+    console.log(`aaaaaaaaaaaaa`, userName);
+    console.log(profileUrl);
 
     // 이미지 미리보기 파일 관리
     const [imagePreviewUrl, setImagePreviewUrl] = useState("");
