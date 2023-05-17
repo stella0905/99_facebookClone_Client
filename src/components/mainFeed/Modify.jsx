@@ -1,7 +1,7 @@
-import { useRef, useState } from "react";
-import useInput from "./useInput";
-import { useMutation, useQueryClient } from "react-query";
 import { modifyPost } from "api/board";
+import { useRef, useState } from "react";
+import { useMutation, useQueryClient } from "react-query";
+import useInput from "./useInput";
 
 // imageId 중 삭제될 imageId 값만을 골라내 api로 전달하는 로직 구현 필요.
 const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId }) => {
@@ -20,6 +20,7 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId })
     });
 
     const [post, postChangeHandler] = useInput(content);
+    //setButton는 필요해서 지우지 않음
     const [button, setButton] = useState(false);
 
     // 수정될 이미지에 대한 상태 관리와 현재 이미지 삭제 관리

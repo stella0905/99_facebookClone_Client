@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import { deletePost, getPosts, likePost } from "api/board";
+import { useState } from "react";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { formatDate } from "shared/formatDate";
 import FollowModal from "./FollowModal";
 import Modify from "./Modify";
-import { deletePost, getPosts, likePost } from "api/board";
-import { QueryClient, useMutation, useQuery, useQueryClient } from "react-query";
-import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
-import { formatDate } from "shared/formatDate";
 
 const Board = () => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -81,7 +81,7 @@ const Board = () => {
         onSuccess: (response, postId) => {
             const { likeCheck, message } = response;
 
-            const updatedPosts = postData.map((post) => {
+            postData.map((post) => {
                 if (post.post_id === postId) {
                     const updatedLikes = response ? Math.max(post.likes - 1, 0) : post.likes + 1;
                     return {

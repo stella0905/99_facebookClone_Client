@@ -35,7 +35,7 @@ export const signUpUser = async (formData) => {
   } catch (error) {
     const {
       response: {
-        data: { status, errorMessage },
+        data: { errorMessage },
       },
     } = error;
     throw new Error(errorMessage);
@@ -53,9 +53,8 @@ export const loginUser = async (user) => {
     if (!response || !response.data) {
       throw new Error('response 없음:::::::', response);
     }
-    const { Authorization, refreshtoken, message } = response.data;
+    const { Authorization, refreshtoken } = response.data;
     const { name, profile_url } = response.data.loginData;
-    // console.log(name, profile_url);
 
     return {
       Authorization,
@@ -124,16 +123,16 @@ api.interceptors.response.use(
         //     window.location.reload();
         //   }
         // }
-      // } else if (status === 403) {
-      //   // 권한 없음
-      //   alert(errorMessage);
-      //   // navigate('/error/403');
-      // } else if (status === 412) {
-      //   // 토큰 만료
-      //   // alert(errorMessage);
-      //   // 에러 메시지 전달
-      //   alert(errorMessage);
-      //   // throw new Error(errorMessage);
+        // } else if (status === 403) {
+        //   // 권한 없음
+        //   alert(errorMessage);
+        //   // navigate('/error/403');
+        // } else if (status === 412) {
+        //   // 토큰 만료
+        //   // alert(errorMessage);
+        //   // 에러 메시지 전달
+        //   alert(errorMessage);
+        //   // throw new Error(errorMessage);
       }
       alert(errorMessage);
     }

@@ -6,7 +6,6 @@ const SignupFormModal = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [previewImage, setPreviewImage] = useState(null);
   const [profileUrl, setProfileUrl] = useState(null);
-  const [errorMessage, setErrorMessage] = useState(null);
   const imgRef = useRef(null);
 
   const {
@@ -52,8 +51,8 @@ const SignupFormModal = () => {
       birthYear,
       birthMonth,
       birthDay,
-      profileUrl,
-      img,
+      // profileUrl,
+      // img,
     } = data;
 
     const formData = new FormData();
@@ -66,7 +65,7 @@ const SignupFormModal = () => {
       formData.append('img', imgRef.current.files[0]);
     }
     try {
-      const result = await signUpUser(formData);
+      await signUpUser(formData);
       reset({
         lastName: '',
         firstName: '',
@@ -81,8 +80,7 @@ const SignupFormModal = () => {
       });
       closeModal();
     } catch (error) {
-      // setErrorMessage(error.message);
-      console.log(error.message);
+
     }
   };
 
@@ -370,9 +368,6 @@ const SignupFormModal = () => {
                 쿠키 정책에 동의하게 됩니다. Hanghaebook으로부터 SMS 알림을 받을
                 수 있으며 알림은 언제든지 옵트 아웃할 수 있습니다.
               </div>
-              {errorMessage && (
-                <div className='text-red-500 text-sm mt-1'>{errorMessage}</div>
-              )}
               <div className='flex justify-center'>
                 <button className='flex justify-center m-3 items-center text-lg h-10 w-1/2 px-2 py-3 font-medium text-white bg-loginSignUpGreen rounded focus:outline-none hover:bg-green-600'>
                   가입하기

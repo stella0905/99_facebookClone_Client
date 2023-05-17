@@ -1,6 +1,5 @@
-import { followDelete, followList } from 'components/axios/users';
-import { useEffect } from 'react';
-import { useMutation, useQuery } from 'react-query';
+import { followList } from 'api/users';
+import { useQuery } from 'react-query';
 import FollowItem from './FollowItem';
 
 const FollowList = () => {

@@ -1,5 +1,5 @@
+import { followDelete } from 'api/users';
 import { ReactComponent as Chat } from 'assets/chat.svg';
-import { followDelete } from 'components/axios/users';
 import { FiUserMinus } from 'react-icons/fi';
 import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
