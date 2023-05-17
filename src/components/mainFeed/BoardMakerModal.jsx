@@ -10,7 +10,6 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
 
     // post text 작성
     const [post, postChangeHandler] = useInput("");
-    // console.log(post);
     const [button, setButton] = useState(false);
 
     //모달창 닫기
@@ -58,7 +57,6 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
 
     // 이미지 미리보기 파일 관리
     const [imagePreviewUrl, setImagePreviewUrl] = useState("");
-    // console.log(imagePreviewUrl);
 
     const handleImageChange = (e) => {
         e.preventDefault();
@@ -107,7 +105,6 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                             onChange={postChangeHandler}
                         />
                     </form>
-                    {/* <div className="bg-green-200 w-[550px] h-[300px] rounded-lg"></div> */}
 
                     <div className="max-w-xl">
                         <div className=" p-2 bg-white border-solid border-2 border-gray-300 rounded-lg">
@@ -142,7 +139,6 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                         role="button"
                         onClick={handleSubmit}
                     >
-
                         게시
                     </div>
                 </div>

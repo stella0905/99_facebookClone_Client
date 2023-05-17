@@ -12,7 +12,7 @@ const Layout = () => {
                     <Outlet />
                 </div>
             </div>
-            {/* <Footer className="relative" /> */}
+            <Footer className="relative" />
         </div>
     );
 };
