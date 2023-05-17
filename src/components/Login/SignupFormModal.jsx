@@ -39,6 +39,9 @@ const SignupFormModal = () => {
     ) {
       return;
     }
+    if (!imgRef.current.files[0]) {
+      alert('이미지를 등록해주세요');
+    }
 
     const {
       email,
@@ -50,6 +53,7 @@ const SignupFormModal = () => {
       birthMonth,
       birthDay,
       profileUrl,
+      img,
     } = data;
 
     const formData = new FormData();
@@ -73,10 +77,12 @@ const SignupFormModal = () => {
         birthMonth: '',
         birthDay: '',
         gender: '',
+        img:'',
       });
       closeModal();
     } catch (error) {
-      setErrorMessage(error.message);
+      // setErrorMessage(error.message);
+      console.log(error.message);
     }
   };
 
@@ -140,6 +146,9 @@ const SignupFormModal = () => {
                   id='img'
                   name='img'
                   ref={imgRef}
+                  // {...register('img', {
+                  //   required: '이미지를 등록해주세요.',
+                  // })}
                 />
               </div>
               {/* 이름,성 */}

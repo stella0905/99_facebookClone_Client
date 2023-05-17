@@ -179,11 +179,62 @@ const Board = () => {
                                 <span className="self-center">{item.likes}개</span>
                             </div>
                         </div>
+                      </div>
                     </div>
-                );
-            })}
-        </>
-    );
+                  )}
+                  {showBoardModal && (
+                    <Modify
+                      showBoardModal={showBoardModal}
+                      setShowBoardModal={setShowBoardModal}
+                    />
+                  )}
+                </div>
+              </div>
+              <div>
+                <div className='text-left'>{item.content}</div>
+              </div>
+              <div>
+                <img
+                  className='h-[470px] w-[648px] object-contain'
+                  src={imageUrl}
+                  alt=''
+                />
+              </div>
+              <div className='flex flex-row space-x-2 mt-2 ml-2'>
+                {/* <img
+                  className={`h-8 w-8 object-contain rounded-full
+                    ${
+                    isClicked ? 'animate-shake' : ''
+                  }`} */}{' '}
+                <button
+                  className='object-contain rounded-full'
+                  src={likeIcon}
+                  alt=''
+                  onClick={() => handleLikeClick(item.post_id)}
+                >
+                  {isLike[item.post_id] ? (
+                    <FaThumbsUp
+                      style={{
+                        color: 'blue',
+                        fontSize: '20px',
+                      }}
+                    />
+                  ) : (
+                    <FaRegThumbsUp
+                      style={{
+                        fontSize: '20px',
+                      }}
+                    />
+                  )}
+                </button>
+                <span className='self-center'>{item.likes}개</span>
+              </div>
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
 };
 
 export default Board;
