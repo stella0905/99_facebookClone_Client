@@ -2,7 +2,7 @@ import { useState } from "react";
 import useInput from "./useInput";
 import { useMutation } from "react-query";
 import { addPost } from "api/board";
-import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -20,6 +20,15 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
             setButton(!button);
         }
     };
+
+    const navigate = useNavigate();
+
+    //로컬스토리지에서 유저정보 불러오고 값이 없다면 로그인 화면으로 이동
+    const storedUser = localStorage.getItem("user");
+    const user = JSON.parse(storedUser);
+    if (!user) {
+        navigate("/login");
+    }
 
     // 게시글 작성
     const mutation = useMutation(addPost, {
@@ -54,11 +63,6 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
     // 이미지 파일 상태 관리
     const [file, setFile] = useState(null);
 
-    const userName = useSelector((state) => state.users.name);
-    const profileUrl = useSelector((state) => state.users.profile_url);
-    console.log(`aaaaaaaaaaaaa`, userName);
-    console.log(profileUrl);
-
     // 이미지 미리보기 파일 관리
     const [imagePreviewUrl, setImagePreviewUrl] = useState("");
 
@@ -92,8 +96,8 @@ const BoardMakerModal = ({ setShowBoardModal, showBoardModal }) => {
                         <img className="h-7 w-7 " src={closeIcon} alt="" />
                     </div>
                     <div className="flex flex-row space-x-2 mt-3">
-                        <img className="h-9 w-9 flex-none rounded-full self-center" src={default_profile_url} alt="" />
-                        <div className="text-left">유리</div>
+                        <img className="h-9 w-9 flex-none rounded-full self-center" src={user.profile_url} alt="" />
+                        <div className="text-left">{user.name}</div>
                     </div>
                     <form
                         method="post"
