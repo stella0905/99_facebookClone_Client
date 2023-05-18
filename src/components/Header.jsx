@@ -34,19 +34,19 @@ const Header = () => {
             hanghaebook
           </div>
         </div>
-        <div className='flex items-center w-2/5'>
-          {/* 검색 입력창 */}
-          <input
+        {/* 검색 입력창 */}
+        {/* <div className='flex items-center w-2/5'> */}
+        {/* <input
             type='text'
             placeholder='Hanghaebook 검색'
             className='rounded-full py-1 px-5 w-full h-8 bg-gray-200 focus:outline-none focus:bg-white focus:ring-1 focus:ring-blue-500'
           />
-        </div>
+        </div> */}
         {/* 아이콘 */}
         <div className='flex items-center justify-between'>
-          <div className='w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200'>
+          {/* <div className='w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200'>
             <Chat className='w-3.5 h-3.5 cursor-pointer hover:fill-brand' />
-          </div>
+          </div> */}
           <div className='w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200'>
             <img
               className='h-7 w-7 cursor-pointer flex-none rounded-full '

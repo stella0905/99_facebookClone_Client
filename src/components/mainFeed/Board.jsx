@@ -1,11 +1,13 @@
 import { deletePost, getPosts, likePost } from 'api/board';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { formatDate } from 'shared/formatDate';
 import FollowModal from './FollowModal';
 import Modify from './Modify';
 import { debounce } from 'lodash';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 const Board = () => {
   const default_profile_url = '/images/default-profile-url.png';
@@ -13,6 +15,21 @@ const Board = () => {
   const likeIcon = '/images/likeIcon.png';
   const [isLike, setIsLike] = useState(false);
   const [loading, setLoading] = useState(false);
+  const token = Cookies.get('Authorization');
+  const [isLogin, setIsLogin] = useState(false);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      setIsLogin(true);
+    }
+  }, [token]);
+
+  const storedUser = localStorage.getItem('user');
+  const user = JSON.parse(storedUser);
+  if (!user) {
+    navigate('/login');
+  }
 
   // 각 게시물 수정, 삭제 모달 state 관리
   const [showButtons, setShowButtons] = useState({});
@@ -168,13 +185,16 @@ const Board = () => {
                   </div>
                 </div>
                 <div className='bg-cover bg-center object-contain self-center'>
-                  <img
-                    className='h-7 w-7 hover:bg-gray-200 rounded-full '
-                    role='button'
-                    src={seeMoreIcon}
-                    alt=''
-                    onClick={() => moreIconButtonClickHandler(item.post_id)}
-                  />
+                  {/* 본인이 작성한 글만 수정/삭제 버튼이 보이도록 처리 */}
+                  {isLogin && item.name === user.name && (
+                    <img
+                      className='h-7 w-7 hover:bg-gray-200 rounded-full '
+                      role='button'
+                      src={seeMoreIcon}
+                      alt=''
+                      onClick={() => moreIconButtonClickHandler(item.post_id)}
+                    />
+                  )}
                   {showButtons[item.post_id] && (
                     <div className='absolute right-0'>
                       <div className='pb-4 drop-shadow'>
