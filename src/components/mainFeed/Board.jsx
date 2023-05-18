@@ -104,7 +104,7 @@ const Board = () => {
       }
     },
     onError: (error) => {
-      alert('잠시 후 다시 시도해주시기 바랍니다.');
+      alert(error);
     },
     onSettled: () => {
       setLoading(false);
