@@ -13,7 +13,7 @@ export default function Loading() {
           margin={2}
         />
         <p className='mt-10 text-lg text-center'>
-          로딩중입니다.
+          로딩중입니다. 
           <br />
           잠시만 기다려주세요.
         </p>
