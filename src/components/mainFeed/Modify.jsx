@@ -2,9 +2,17 @@ import { modifyPost } from "api/board";
 import { useRef, useState } from "react";
 import { useMutation, useQueryClient } from "react-query";
 import useInput from "./useInput";
+import { Navigate } from "react-router-dom";
 
 // imageId 중 삭제될 imageId 값만을 골라내 api로 전달하는 로직 구현 필요.
-const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId }) => {
+const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId, profileUrl }) => {
+    // const storedUser = localStorage.getItem("user");
+    // console.log(user);
+    // const user = JSON.parse(storedUser);
+    // if (!user) {
+    //     Navigate("/login");
+    // }
+
     const default_profile_url = "/images/default-profile-url.png";
     const closeIcon = "/images/close.png";
 
@@ -25,6 +33,7 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId })
 
     // 수정될 이미지에 대한 상태 관리와 현재 이미지 삭제 관리
     const [image, setImage] = useState(imageUrl);
+    const [file, setFile] = useState(null); // 새로 추가될 이미지 파일을 저장할 state 추가
     const fileInputRef = useRef(null); // 이미지 클릭시 바로 파일 선택창이 뜨게하기 위한 입력 참조 생성
 
     // 이미지 클릭되었을 때 핸들러
@@ -39,12 +48,14 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId })
 
         reader.onloadend = () => {
             setImage(reader.result);
+            setFile(file);
         };
 
         if (file) {
             reader.readAsDataURL(file);
+            // setFile(file);
         } else {
-            setImage(image);
+            setImage(file);
         }
     };
 
@@ -72,7 +83,7 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId })
                         <img className="h-7 w-7 " src={closeIcon} alt="" />
                     </div>
                     <div className="flex flex-row space-x-2 mt-3">
-                        <img className="h-9 w-9 flex-none rounded-full self-center" src={default_profile_url} alt="" />
+                        <img className="h-9 w-9 flex-none rounded-full self-center" src={profileUrl} alt="" />
                         <div className="text-left">{name}</div>
                     </div>
                     <form
@@ -107,7 +118,7 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId })
                         className="bg-[#1b6dd8] text-white rounded-lg w-[550px] p-2 text-center  mt-5"
                         role="button"
                         onClick={() => {
-                            mutation.mutate({ postId, postContent: post, image, imageId });
+                            mutation.mutate({ postId, postContent: post, file, imageId });
                             setShowBoardModal(false);
                             if (post.length > 0) {
                                 setButton(true);
