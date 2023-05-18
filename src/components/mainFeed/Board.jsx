@@ -8,6 +8,7 @@ import Modify from './Modify';
 import { debounce } from 'lodash';
 import Cookies from 'js-cookie';
 import { useNavigate } from 'react-router-dom';
+import Loading from 'components/Loading';
 
 const Board = () => {
   const default_profile_url = '/images/default-profile-url.png';
@@ -70,6 +71,7 @@ const Board = () => {
   // 게시글 삭제
   const mutation = useMutation(deletePost, {
     onSuccess: () => {
+      setLoading(false);
       queryClient.invalidateQueries('posts');
       alert('게시글이 삭제되었습니다!');
     },
@@ -89,13 +91,15 @@ const Board = () => {
           // 로그인 페이지 이동 처리 필요.
           break;
         default:
-        // alert("알 수 없는 오류가 발생했습니다."); // - 삭제 속도가 느려서 알수없는 오류 코드가 뜸.
+          // alert("알 수 없는 오류가 발생했습니다."); // - 삭제 속도가 느려서 알수없는 오류 코드가 뜸.
+          setLoading(false);
       }
     },
   });
 
   // 게시글 삭제 핸들러
   const onClickRemoveButtonHandler = (postId) => {
+    setLoading(true);
     mutation.mutate(postId);
   };
 
