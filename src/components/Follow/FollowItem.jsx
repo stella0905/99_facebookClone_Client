@@ -16,7 +16,6 @@ const FollowItem = ({ data }) => {
   };
   const mutation = useMutation(followDelete, {
     onSuccess: () => {
-      alert('삭제 성공!');
       queryClient.invalidateQueries('followList');
       setLoading(false);
     },
