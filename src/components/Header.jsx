@@ -19,6 +19,12 @@ const Header = () => {
     navigate('/login');
   };
 
+  const storedUser = localStorage.getItem('user');
+  const user = JSON.parse(storedUser);
+  if (!user) {
+    navigate('/login');
+  }
+
   return (
     <header className='bg-white shadow-md '>
       <div className='flex items-center h-12 justify-between px-2 py-1'>
@@ -42,8 +48,11 @@ const Header = () => {
             <Chat className='w-3.5 h-3.5 cursor-pointer hover:fill-brand' />
           </div>
           <div className='w-7 h-7 flex mx-1 items-center justify-center rounded-full bg-gray-200'>
-            <BsFillPersonFill
-              className='w-5 h-5 cursor-pointer hover:fill-brand'
+            <img
+              className='h-7 w-7 cursor-pointer flex-none rounded-full '
+              src={user.profile_url}
+              alt=''
+              role='button'
               onClick={() => setShowLogoutModal((prev) => !prev)}
             />
           </div>
