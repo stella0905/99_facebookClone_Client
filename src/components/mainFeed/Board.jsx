@@ -42,8 +42,11 @@ const Board = () => {
     const { data, isLoading, isError } = useQuery("posts", getPosts);
 
     // 유저 미니프로필로 친구추가 모달 오픈 버튼 함수
-    const showFollowProfileButtonHandler = () => {
-        setShowProfileButtons(!showProfileButtons);
+    const showFollowProfileButtonHandler = (postId) => {
+        setShowProfileButtons((prevState) => ({
+            ...prevState,
+            [postId]: !prevState[postId],
+        }));
     };
 
     // 수정, 삭제 모달 오픈 버튼 함수
@@ -165,11 +168,11 @@ const Board = () => {
                                         src={item.profile_url}
                                         alt=""
                                         role="button"
-                                        onClick={showFollowProfileButtonHandler}
+                                        onClick={()=>showFollowProfileButtonHandler(item.post_id)}
                                     />
-                                    {showProfileButtons && (
+                                    {showProfileButtons[item.post_id] && (
                                         <div className="absolute top-11">
-                                            <FollowModal userName={item.name} />
+                                            <FollowModal data={item} setShowProfileButtons={()=>setShowProfileButtons(item.post_id)} showProfileButtons={showProfileButtons[item.post_id]}/>
                                         </div>
                                     )}
                                     <div className=" flex-col ">
