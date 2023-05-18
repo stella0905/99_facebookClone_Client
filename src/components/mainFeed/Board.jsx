@@ -1,13 +1,15 @@
-import { deletePost, getPosts, likePost } from "api/board";
-import { useEffect, useState } from "react";
-import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
-import { useMutation, useQuery, useQueryClient } from "react-query";
-import { formatDate } from "shared/formatDate";
-import FollowModal from "./FollowModal";
-import Modify from "./Modify";
-import { debounce } from "lodash";
-import Cookies from "js-cookie";
-import { useNavigate } from "react-router-dom";
+import { deletePost, getPosts, likePost } from 'api/board';
+import { useEffect, useState } from 'react';
+import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
+import { formatDate } from 'shared/formatDate';
+import FollowModal from './FollowModal';
+import Modify from './Modify';
+import { debounce } from 'lodash';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
+import Loading from 'components/Loading';
+
 
 const Board = () => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -41,10 +43,13 @@ const Board = () => {
     // 게시글 조회
     const { data, isLoading, isError } = useQuery("posts", getPosts);
 
-    // 유저 미니프로필로 친구추가 모달 오픈 버튼 함수
-    const showFollowProfileButtonHandler = () => {
-        setShowProfileButtons(!showProfileButtons);
-    };
+  // 유저 미니프로필로 친구추가 모달 오픈 버튼 함수
+  const showFollowProfileButtonHandler = (postId) => {
+    setShowProfileButtons((prevState) => ({
+        ...prevState,
+        [postId]: !prevState[postId],
+      }));
+  };
 
     // 수정, 삭제 모달 오픈 버튼 함수
     const moreIconButtonClickHandler = (postId) => {
@@ -62,6 +67,7 @@ const Board = () => {
         setShowButtons((prevState) => ({ ...prevState, [postId]: false }));
         setShowBoardModal((prev) => ({ ...prev, [postId]: true }));
     };
+
 
     const queryClient = useQueryClient();
     // 게시글 삭제
@@ -165,11 +171,12 @@ const Board = () => {
                                         src={item.profile_url}
                                         alt=""
                                         role="button"
-                                        onClick={showFollowProfileButtonHandler}
-                                    />
-                                    {showProfileButtons && (
-                                        <div className="absolute top-11">
-                                            <FollowModal userName={item.name} />
+                                       onClick={()=>showFollowProfileButtonHandler(item.post_id)}
+                                        />
+                                        {showProfileButtons[item.post_id] && (
+                                          <div className='absolute top-11'>
+                                            <FollowModal data={item} showProfileButtons={showProfileButtons[item.post_id]}
+                                            setShowProfileButtons={()=>setShowBoardModal(item.post_id)}/>
                                         </div>
                                     )}
                                     <div className=" flex-col ">

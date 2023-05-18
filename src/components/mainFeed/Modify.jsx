@@ -21,9 +21,12 @@ const Modify = ({ setShowBoardModal, content, postId, name, imageUrl, imageId, p
     const mutation = useMutation(modifyPost, {
         onSuccess: () => {
             queryClient.invalidateQueries("posts");
+            setLoading(false);
+            setShowBoardModal(false);
         },
         onError: (error) => {
             console.error(error);
+            setLoading(false);
         },
     });
 
