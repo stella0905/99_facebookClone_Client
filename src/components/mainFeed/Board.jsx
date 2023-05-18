@@ -1,15 +1,13 @@
-import { deletePost, getPosts, likePost } from 'api/board';
-import { useEffect, useState } from 'react';
-import { FaRegThumbsUp, FaThumbsUp } from 'react-icons/fa';
-import { useMutation, useQuery, useQueryClient } from 'react-query';
-import { formatDate } from 'shared/formatDate';
-import FollowModal from './FollowModal';
-import Modify from './Modify';
-import { debounce } from 'lodash';
-import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
-import Loading from 'components/Loading';
-
+import { deletePost, getPosts, likePost } from "api/board";
+import { useEffect, useState } from "react";
+import { FaRegThumbsUp, FaThumbsUp } from "react-icons/fa";
+import { useMutation, useQuery, useQueryClient } from "react-query";
+import { formatDate } from "shared/formatDate";
+import FollowModal from "./FollowModal";
+import Modify from "./Modify";
+import { debounce } from "lodash";
+import Cookies from "js-cookie";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Board = () => {
     const default_profile_url = "/images/default-profile-url.png";
@@ -43,13 +41,10 @@ const Board = () => {
     // 게시글 조회
     const { data, isLoading, isError } = useQuery("posts", getPosts);
 
-  // 유저 미니프로필로 친구추가 모달 오픈 버튼 함수
-  const showFollowProfileButtonHandler = (postId) => {
-    setShowProfileButtons((prevState) => ({
-        ...prevState,
-        [postId]: !prevState[postId],
-      }));
-  };
+    // 유저 미니프로필로 친구추가 모달 오픈 버튼 함수
+    const showFollowProfileButtonHandler = () => {
+        setShowProfileButtons(!showProfileButtons);
+    };
 
     // 수정, 삭제 모달 오픈 버튼 함수
     const moreIconButtonClickHandler = (postId) => {
@@ -67,7 +62,6 @@ const Board = () => {
         setShowButtons((prevState) => ({ ...prevState, [postId]: false }));
         setShowBoardModal((prev) => ({ ...prev, [postId]: true }));
     };
-
 
     const queryClient = useQueryClient();
     // 게시글 삭제
@@ -89,9 +83,9 @@ const Board = () => {
                     break;
                 case "로그인이 필요한 기능입니다.":
                     alert("로그인이 필요한 기능입니다. 로그인해 주세요.");
-                    // 로그인 페이지 이동 처리 필요.
+                    Navigate("/login");
                     break;
-                default:
+                // default:
                 // alert("알 수 없는 오류가 발생했습니다."); // - 삭제 속도가 느려서 알수없는 오류 코드가 뜸.
             }
         },
@@ -171,12 +165,11 @@ const Board = () => {
                                         src={item.profile_url}
                                         alt=""
                                         role="button"
-                                       onClick={()=>showFollowProfileButtonHandler(item.post_id)}
-                                        />
-                                        {showProfileButtons[item.post_id] && (
-                                          <div className='absolute top-11'>
-                                            <FollowModal data={item} showProfileButtons={showProfileButtons[item.post_id]}
-                                            setShowProfileButtons={()=>setShowBoardModal(item.post_id)}/>
+                                        onClick={showFollowProfileButtonHandler}
+                                    />
+                                    {showProfileButtons && (
+                                        <div className="absolute top-11">
+                                            <FollowModal userName={item.name} />
                                         </div>
                                     )}
                                     <div className=" flex-col ">
