@@ -31,7 +31,7 @@ const BoardMaker = () => {
                         <BoardMakerModal showBoardModal={showBoardModal} setShowBoardModal={setShowBoardModal} />
                     )}
                 </div>
-                <div className="flex justify-center space-x-3 p-2 hover:bg-gray-200 w-[200px] self-center mt-2">
+                <div className="flex justify-center space-x-3 p-2 hover:bg-gray-200 w-[200px] self-center mt-2" onClick={BoardMakerModalHandler}>
                     <img className="h-6 w-6 flex-none" src={img_file_url} alt="" />
                     <span>사진/동영상</span>
                 </div>
