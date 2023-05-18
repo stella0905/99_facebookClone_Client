@@ -4,7 +4,6 @@ import Cookies from "js-cookie";
 
 // 포스트 작성
 export const createPost = async ({ post, file }) => {
-    // console.log(`포스트 작성 파일 체크`, file);
     try {
         const formData = new FormData();
         formData.append("content", post);
@@ -75,7 +74,7 @@ export const modifyPost = async ({ postId, postContent, file, imageId }) => {
         formData.append("content", postContent);
 
         // image 가 url 이면 removeImgId, 아니라면 추가될 image 와 삭제될 image 다보내주기
-        if (typeof file === "string" && (file.startsWith("http") || file.startsWith("https"))) {
+        if (!file) {
             formData.append("img", file);
             formData.append("removeImgId", [null]);
         } else {
