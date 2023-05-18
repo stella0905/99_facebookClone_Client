@@ -43,9 +43,9 @@ const LoginForm = () => {
       };
       localStorage.setItem('user', JSON.stringify(user));
 
-      // Access Token 만료 시간 계산 (30분)
+      // Access Token 만료 시간 계산 (2시간)
       const expirationTime = new Date();
-      expirationTime.setMinutes(expirationTime.getMinutes() + 30);
+      expirationTime.setHours(expirationTime.getHours() + 2);
 
       // Refresh Token 만료 시간 계산 (7일)
       const refreshTokenExpirationTime = new Date();
@@ -53,7 +53,7 @@ const LoginForm = () => {
         refreshTokenExpirationTime.getDate() + 7
       );
 
-      // Access Token 저장 (30분 유효)
+      // Access Token 저장 (2시간 유효)
       Cookies.set('Authorization', Authorization, {
         expires: expirationTime,
         path: '/',
