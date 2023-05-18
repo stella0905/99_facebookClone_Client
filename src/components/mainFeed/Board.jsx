@@ -34,7 +34,6 @@ const Board = () => {
     // 각 게시물 수정, 삭제 모달 state 관리
     const [showButtons, setShowButtons] = useState({});
     const [showBoardModal, setShowBoardModal] = useState({});
-    // 👇
 
     const [showProfileButtons, setShowProfileButtons] = useState(false);
 
